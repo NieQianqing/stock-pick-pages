@@ -94,11 +94,34 @@ html, body {
 .stock-table tbody tr.row-hit { background: #fff5f5; }
 .stock-table tbody tr.row-hit .stock-name { color: var(--red); }
 .stock-table tbody tr.row-main { cursor: pointer; }
+.stock-table tbody tr.row-priority { box-shadow: inset 3px 0 0 #d9a441; }
 .stock-table tbody tr.row-main.expanded { background: #f7f7f7; }
 .stock-table tbody tr.row-expand td { padding: 0 10px 12px; text-align: left; background: #fafafa; }
 .metrics-box {
-  display: flex; flex-wrap: wrap; gap: 8px; padding: 12px;
-  background: #f3f3f3; border-radius: 10px;
+  display: grid; gap: 12px; padding: 14px;
+  background: #f4f6f8; border: 1px solid #e5e8ec; border-radius: 12px;
+}
+.metric-summary {
+  display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 8px;
+}
+.metric-summary > div {
+  display: flex; flex-direction: column; justify-content: center;
+  min-height: 54px; padding: 8px 12px; background: #fff;
+  border: 1px solid #e6e8eb; border-radius: 10px;
+}
+.metric-summary strong { font-size: 15px; color: #222; }
+.metric-summary small { margin-top: 3px; color: #888; font-size: 11px; }
+.metric-summary .metric-score strong { font-size: 22px; }
+.metric-section {
+  padding: 10px 12px 12px; background: #fff; border: 1px solid #e6e8eb; border-radius: 10px;
+}
+.metric-section h4 {
+  margin: 0 0 9px; font-size: 13px; color: #333;
+}
+.metric-grid { display: flex; flex-wrap: wrap; gap: 7px; }
+.metric-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  color: #888; font-size: 11px;
 }
 .metric-pill {
   display: inline-block; background: #fff; border: 1px solid #e6e6e6;
@@ -106,19 +129,46 @@ html, body {
   white-space: nowrap;
 }
 .metric-pill b { font-weight: 600; color: #666; margin-right: 4px; }
+.metric-good { color: #287a48; background: #f2fbf5; border-color: #cde9d6; }
+.metric-warn { color: #986400; background: #fff9e9; border-color: #eedda9; }
+.metric-bad { color: #b33a32; background: #fff4f3; border-color: #efcfcc; }
+.metric-pill.metric-good b,
+.metric-pill.metric-warn b,
+.metric-pill.metric-bad b { color: inherit; }
 .btn-div-hist {
   border: 1px solid var(--accent); background: #fff; color: var(--accent);
   border-radius: 14px; padding: 5px 12px; font-size: 12px; cursor: pointer;
 }
+@media (max-width: 720px) {
+  .metric-summary { grid-template-columns: 1fr 1fr; }
+  .metric-foot { align-items: flex-start; flex-direction: column; }
+}
 
 /* 列宽分配（9 列） */
-.col-name    { width: 16%; }
-.col-price   { width: 9%; }
-.col-yield   { width: 17%; }
-.col-payout  { width: 9%; }
-.col-years   { width: 9%; }
-.col-drop    { width: 10%; }
-.col-tier    { width: 10%; }
+.col-name    { width: 14%; }
+.col-score   { width: 9%; }
+.col-price   { width: 8%; }
+.col-yield   { width: 15%; }
+.col-payout  { width: 8%; }
+.col-years   { width: 8%; }
+.col-drop    { width: 9%; }
+.col-tier    { width: 9%; }
+.cell-score { font-weight: 700; white-space: nowrap; }
+.score-hi { color: var(--red); }
+.score-mid { color: #c27803; }
+.score-lo { color: #888; }
+.score-label { display: block; font-size: 11px; font-weight: 400; color: #999; }
+.priority-badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 5px;
+  border-radius: 8px;
+  color: #9a6400;
+  background: #fff2cc;
+  font-size: 10px;
+  font-weight: 600;
+  vertical-align: 1px;
+}
 .stock-table thead th small { font-weight: 400; font-size: 11px; color: #aaa; }
 
 /* 名称列：简称 + 代码 */
@@ -228,9 +278,30 @@ html, body {
 .stock-table tbody tr.row-main { cursor: pointer; }
 .stock-table tbody tr.row-main.expanded { background: #f7f7f7; }
 .stock-table tbody tr.row-expand td { padding: 0 10px 12px; text-align: left; background: #fafafa; }
-.metrics-box { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px; background: #f3f3f3; border-radius: 10px; }
+.metrics-box { display: grid; gap: 12px; padding: 14px; background: #f4f6f8; border: 1px solid #e5e8ec; border-radius: 12px; }
+.metric-summary { display: grid; grid-template-columns: 1.4fr repeat(3,1fr); gap: 8px; }
+.metric-summary>div { display:flex; flex-direction:column; justify-content:center; min-height:54px; padding:8px 12px; background:#fff; border:1px solid #e6e8eb; border-radius:10px; }
+.metric-summary strong { font-size:15px; color:#222; }
+.metric-summary small { margin-top:3px; color:#888; font-size:11px; }
+.metric-summary .metric-score strong { font-size:22px; }
+.metric-section { padding:10px 12px 12px; background:#fff; border:1px solid #e6e8eb; border-radius:10px; }
+.metric-section h4 { margin:0 0 9px; font-size:13px; color:#333; }
+.metric-grid { display:flex; flex-wrap:wrap; gap:7px; }
 .metric-pill { display: inline-block; background: #fff; border: 1px solid #e6e6e6; border-radius: 14px; padding: 5px 10px; font-size: 12px; color: #333; white-space: nowrap; }
 .metric-pill b { font-weight: 600; color: #666; margin-right: 4px; }
+.metric-good { color:#287a48; background:#f2fbf5; border-color:#cde9d6; }
+.metric-warn { color:#986400; background:#fff9e9; border-color:#eedda9; }
+.metric-bad { color:#b33a32; background:#fff4f3; border-color:#efcfcc; }
+.metric-pill.metric-good b,.metric-pill.metric-warn b,.metric-pill.metric-bad b { color:inherit; }
+.metric-foot { display:flex; align-items:center; justify-content:space-between; gap:12px; color:#888; font-size:11px; }
+.row-priority { box-shadow:inset 3px 0 0 #d9a441; }
+.priority-badge { display:inline-block; margin-left:6px; padding:1px 5px; border-radius:8px; color:#9a6400; background:#fff2cc; font-size:10px; font-weight:600; vertical-align:1px; }
+@media(max-width:720px){.metric-summary{grid-template-columns:1fr 1fr}.metric-foot{align-items:flex-start;flex-direction:column}}
+.cell-score { font-weight: 700; white-space: nowrap; }
+.score-hi { color: #d81e06; }
+.score-mid { color: #c27803; }
+.score-lo { color: #888; }
+.score-label { display: block; font-size: 11px; font-weight: 400; color: #999; }
 </style>
 </head>
 <body>
@@ -266,6 +337,7 @@ html, body {
         <thead>
           <tr>
             <th class="col-name">名称/代码</th>
+            <th class="col-score">评分</th>
             <th class="col-price">最新价</th>
             <th class="col-yield">股息率<br><small>新/均/低</small></th>
             <th class="col-payout">分红率</th>
@@ -319,7 +391,7 @@ html, body {
 
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script>
-  const DATA = {"trade_date": "20260718", "rows": [{"code": "600398", "name": "海澜之家", "industry": "服装家纺", "price": 5.89, "market_cap_yi": 282.88, "yield_new_pct": 6.96, "yield_avg_pct": 7.81, "yield_low_pct": 6.96, "payout_pct": 91.11, "continuous_years": 18, "last_year_dps": 0.41, "price_first": 8.2, "price_add": 6.83, "price_heavy": 5.86, "is_core": false, "metrics": {"pe_ttm": 7.45, "pe_industry_pct": 0.0, "pe_zone": "偏低区域", "peg": null, "peg_level": null, "pb": 1.64, "pb_hist_pct": 25.08, "payout_pct": 91.11, "last_year_dps": 0.41, "continuous_years": 18, "turnover_pct": 0.8, "market_cap_yi": 282.88317043, "volume_hand": 38.5674, "avg_price": 5.94, "chg_30d_pct": null, "chg_30d_pctile": null, "total_shares_yi": 48.03, "profit_yoy_pct": null, "report_date": "2025-12-31", "debt_ratio_pct": 45.4858792458, "interest_debt_ratio_pct": null, "roe_weighted_pct": 12.31, "fcf": 4549323426.48047, "fcf_ev": 0.1608, "roe_5y_avg_ge_12": true, "roe_5y_min_ge_8": true, "roe_5y_avg": 15.13, "roe_5y_min": 12.31, "roe_5y_std": 2.86, "gross_margin_pct": 44.8744412911, "net_margin_pct": 9.8586506027, "fcf_positive_years": 5, "fcf_to_profit_pct": 130.43, "category": "服装家纺", "is_finance": false, "hard_ok": true, "val_ok": true, "hard_reasons": [], "val_reasons": []}}, {"code": "601166", "name": "兴业银行", "industry": "银行Ⅱ", "price": 17.75, "market_cap_yi": 3756.41, "yield_new_pct": 6.01, "yield_avg_pct": 5.95, "yield_low_pct": 5.86, "payout_pct": 55.81, "continuous_years": 20, "last_year_dps": 1.07, "price_first": 20.8, "price_add": 17.33, "price_heavy": 14.86, "is_core": true, "metrics": {"pe_ttm": 3.94, "pe_industry_pct": 18.18, "pe_zone": "偏低区域", "peg": null, "peg_level": null, "pb": 0.46, "pb_hist_pct": 8.54, "payout_pct": 55.81, "last_year_dps": 1.07, "continuous_years": 20, "turnover_pct": 0.56, "market_cap_yi": 3756.40756356, "volume_hand": 118.618, "avg_price": 17.73, "chg_30d_pct": null, "chg_30d_pctile": null, "total_shares_yi": 211.63, "profit_yoy_pct": null, "report_date": "2025-12-31", "debt_ratio_pct": 91.7646933693, "interest_debt_ratio_pct": null, "roe_weighted_pct": 9.15, "fcf": null, "fcf_ev": null, "roe_5y_avg_ge_12": false, "roe_5y_min_ge_8": true, "roe_5y_avg": 11.49, "roe_5y_min": 9.15, "roe_5y_std": 2.02, "gross_margin_pct": null, "net_margin_pct": 36.5956726724, "fcf_positive_years": 0, "fcf_to_profit_pct": null, "category": "银行Ⅱ", "is_finance": true, "hard_ok": true, "val_ok": true, "hard_reasons": [], "val_reasons": []}}, {"code": "601997", "name": "贵阳银行", "industry": "银行Ⅱ", "price": 5.42, "market_cap_yi": 198.17, "yield_new_pct": 5.54, "yield_avg_pct": 5.41, "yield_low_pct": 5.35, "payout_pct": 21.9, "continuous_years": 10, "last_year_dps": 0.3, "price_first": 5.8, "price_add": 4.83, "price_heavy": 4.14, "is_core": true, "metrics": {"pe_ttm": 3.35, "pe_industry_pct": 12.12, "pe_zone": "偏低区域", "peg": null, "peg_level": null, "pb": 0.31, "pb_hist_pct": 2.63, "payout_pct": 21.9, "last_year_dps": 0.3, "continuous_years": 10, "turnover_pct": 1.77, "market_cap_yi": 198.16593572, "volume_hand": 64.7578, "avg_price": 5.47, "chg_30d_pct": null, "chg_30d_pctile": null, "total_shares_yi": 36.56, "profit_yoy_pct": null, "report_date": "2025-12-31", "debt_ratio_pct": 90.3736300466, "interest_debt_ratio_pct": null, "roe_weighted_pct": 7.97, "fcf": null, "fcf_ev": null, "roe_5y_avg_ge_12": false, "roe_5y_min_ge_8": false, "roe_5y_avg": 10.26, "roe_5y_min": 7.97, "roe_5y_std": 2.05, "gross_margin_pct": null, "net_margin_pct": 41.075498696, "fcf_positive_years": 0, "fcf_to_profit_pct": null, "category": "银行Ⅱ", "is_finance": true, "hard_ok": true, "val_ok": true, "hard_reasons": [], "val_reasons": []}}, {"code": "000001", "name": "平安银行", "industry": "银行Ⅱ", "price": 10.78, "market_cap_yi": 2091.96, "yield_new_pct": 5.53, "yield_avg_pct": 5.95, "yield_low_pct": 5.53, "payout_pct": 50.51, "continuous_years": 14, "last_year_dps": 0.6, "price_first": 11.92, "price_add": 9.93, "price_heavy": 8.51, "is_core": true, "metrics": {"pe_ttm": 3.6, "pe_industry_pct": 15.15, "pe_zone": "偏低区域", "peg": null, "peg_level": null, "pb": 0.46, "pb_hist_pct": 4.82, "payout_pct": 50.51, "last_year_dps": 0.6, "continuous_years": 14, "turnover_pct": 0.55, "market_cap_yi": 2091.95798174, "volume_hand": 107.5499, "avg_price": 10.82, "chg_30d_pct": null, "chg_30d_pctile": null, "total_shares_yi": 194.06, "profit_yoy_pct": null, "report_date": "2025-12-31", "debt_ratio_pct": 90.6985362426, "interest_debt_ratio_pct": null, "roe_weighted_pct": 9.15, "fcf": null, "fcf_ev": null, "roe_5y_avg_ge_12": false, "roe_5y_min_ge_8": true, "roe_5y_avg": 10.76, "roe_5y_min": 9.15, "roe_5y_std": 1.1, "gross_margin_pct": null, "net_margin_pct": 32.4348381796, "fcf_positive_years": 0, "fcf_to_profit_pct": null, "category": "银行Ⅱ", "is_finance": true, "hard_ok": true, "val_ok": true, "hard_reasons": [], "val_reasons": []}}, {"code": "601577", "name": "长沙银行", "industry": "银行Ⅱ", "price": 9.36, "market_cap_yi": 376.42, "yield_new_pct": 4.59, "yield_avg_pct": 4.38, "yield_low_pct": 4.06, "payout_pct": 39.81, "continuous_years": 8, "last_year_dps": 0.43, "price_first": 7.6, "price_add": 6.33, "price_heavy": 5.43, "is_core": true, "metrics": {"pe_ttm": 4.09, "pe_industry_pct": 24.24, "pe_zone": "偏低区域", "peg": null, "peg_level": null, "pb": 0.52, "pb_hist_pct": 16.54, "payout_pct": 39.81, "last_year_dps": 0.43, "continuous_years": 8, "turnover_pct": 0.65, "market_cap_yi": 376.41743137, "volume_hand": 26.0709, "avg_price": 9.4, "chg_30d_pct": null, "chg_30d_pctile": null, "total_shares_yi": 40.22, "profit_yoy_pct": null, "report_date": "2025-12-31", "debt_ratio_pct": 93.5071968887, "interest_debt_ratio_pct": null, "roe_weighted_pct": 11.24, "fcf": null, "fcf_ev": null, "roe_5y_avg_ge_12": true, "roe_5y_min_ge_8": true, "roe_5y_avg": 12.28, "roe_5y_min": 11.24, "roe_5y_std": 0.69, "gross_margin_pct": null, "net_margin_pct": 32.1438072488, "fcf_positive_years": 0, "fcf_to_profit_pct": null, "category": "银行Ⅱ", "is_finance": true, "hard_ok": true, "val_ok": true, "hard_reasons": [], "val_reasons": []}}, {"code": "601128", "name": "常熟银行", "industry": "银行Ⅱ", "price": 6.23, "market_cap_yi": 227.28, "yield_new_pct": 4.33, "yield_avg_pct": 4.12, "yield_low_pct": 4.01, "payout_pct": 45.76, "continuous_years": 10, "last_year_dps": 0.27, "price_first": 5.0, "price_add": 4.17, "price_heavy": 3.57, "is_core": true, "metrics": {"pe_ttm": 4.72, "pe_industry_pct": 33.33, "pe_zone": "合理区域", "peg": null, "peg_level": null, "pb": 0.72, "pb_hist_pct": 1.64, "payout_pct": 45.76, "last_year_dps": 0.27, "continuous_years": 10, "turnover_pct": 1.61, "market_cap_yi": 227.2815669, "volume_hand": 58.7124, "avg_price": 6.28, "chg_30d_pct": null, "chg_30d_pctile": null, "total_shares_yi": 36.48, "profit_yoy_pct": null, "report_date": "2025-12-31", "debt_ratio_pct": 91.6985387189, "interest_debt_ratio_pct": null, "roe_weighted_pct": 14.05, "fcf": null, "fcf_ev": null, "roe_5y_avg_ge_12": true, "roe_5y_min_ge_8": true, "roe_5y_avg": 13.31, "roe_5y_min": 11.62, "roe_5y_std": 0.93, "gross_margin_pct": null, "net_margin_pct": 38.4196673759, "fcf_positive_years": 0, "fcf_to_profit_pct": null, "category": "银行Ⅱ", "is_finance": true, "hard_ok": true, "val_ok": true, "hard_reasons": [], "val_reasons": []}}, {"code": "600926", "name": "杭州银行", "industry": "银行Ⅱ", "price": 15.56, "market_cap_yi": 1127.94, "yield_new_pct": 4.24, "yield_avg_pct": 3.92, "yield_low_pct": 3.34, "payout_pct": 37.71, "continuous_years": 10, "last_year_dps": 0.66, "price_first": 10.4, "price_add": 8.67, "price_heavy": 7.43, "is_core": true, "metrics": {"pe_ttm": 4.25, "pe_industry_pct": 30.3, "pe_zone": "合理区域", "peg": null, "peg_level": null, "pb": 0.82, "pb_hist_pct": 29.9, "payout_pct": 37.71, "last_year_dps": 0.66, "continuous_years": 10, "turnover_pct": 0.58, "market_cap_yi": 1127.94479647, "volume_hand": 42.0444, "avg_price": 15.63, "chg_30d_pct": null, "chg_30d_pctile": null, "total_shares_yi": 72.49, "profit_yoy_pct": null, "report_date": "2025-12-31", "debt_ratio_pct": 93.0934324652, "interest_debt_ratio_pct": null, "roe_weighted_pct": 14.65, "fcf": null, "fcf_ev": null, "roe_5y_avg_ge_12": true, "roe_5y_min_ge_8": true, "roe_5y_avg": 14.53, "roe_5y_min": 12.33, "roe_5y_std": 1.29, "gross_margin_pct": null, "net_margin_pct": 49.0462145668, "fcf_positive_years": 0, "fcf_to_profit_pct": null, "category": "银行Ⅱ", "is_finance": true, "hard_ok": true, "val_ok": true, "hard_reasons": [], "val_reasons": []}}, {"code": "601601", "name": "XD中国太", "industry": "保险Ⅱ", "price": 29.75, "market_cap_yi": 2862.05, "yield_new_pct": 3.87, "yield_avg_pct": 3.64, "yield_low_pct": 3.43, "payout_pct": 20.68, "continuous_years": 19, "last_year_dps": 1.15, "price_first": 20.4, "price_add": 17.0, "price_heavy": 14.57, "is_core": false, "metrics": {"pe_ttm": 7.13, "pe_industry_pct": 0.0, "pe_zone": "偏低区域", "peg": null, "peg_level": null, "pb": 0.93, "pb_hist_pct": 12.49, "payout_pct": 20.68, "last_year_dps": 1.15, "continuous_years": 19, "turnover_pct": 0.98, "market_cap_yi": 2862.05158286, "volume_hand": 67.0862, "avg_price": 29.88, "chg_30d_pct": null, "chg_30d_pctile": null, "total_shares_yi": 96.2, "profit_yoy_pct": null, "report_date": "2025-12-31", "debt_ratio_pct": 89.3720584069, "interest_debt_ratio_pct": null, "roe_weighted_pct": 18.0, "fcf": null, "fcf_ev": null, "roe_5y_avg_ge_12": true, "roe_5y_min_ge_8": true, "roe_5y_avg": 15.48, "roe_5y_min": 11.4, "roe_5y_std": 3.13, "gross_margin_pct": null, "net_margin_pct": 12.7308367574, "fcf_positive_years": 0, "fcf_to_profit_pct": null, "category": "保险Ⅱ", "is_finance": true, "hard_ok": true, "val_ok": true, "hard_reasons": [], "val_reasons": []}}, {"code": "603605", "name": "珀莱雅", "industry": "化妆品", "price": 56.73, "market_cap_yi": 224.64, "yield_new_pct": 3.53, "yield_avg_pct": 2.63, "yield_low_pct": 2.1, "payout_pct": 99.01, "continuous_years": 9, "last_year_dps": 2.0, "price_first": 23.8, "price_add": 19.83, "price_heavy": 17.0, "is_core": false, "metrics": {"pe_ttm": 15.32, "pe_industry_pct": 0.0, "pe_zone": "偏低区域", "peg": null, "peg_level": null, "pb": 3.82, "pb_hist_pct": 2.74, "payout_pct": 99.01, "last_year_dps": 2.0, "continuous_years": 9, "turnover_pct": 2.1, "market_cap_yi": 224.6372126, "volume_hand": 8.2987, "avg_price": 57.61, "chg_30d_pct": null, "chg_30d_pctile": null, "total_shares_yi": 3.96, "profit_yoy_pct": null, "report_date": "2025-12-31", "debt_ratio_pct": 26.1669046033, "interest_debt_ratio_pct": null, "roe_weighted_pct": 25.8, "fcf": 2020514359.17447, "fcf_ev": 0.0899, "roe_5y_avg_ge_12": true, "roe_5y_min_ge_8": true, "roe_5y_avg": 27.29, "roe_5y_min": 22.25, "roe_5y_std": 3.57, "gross_margin_pct": 73.2648096979, "net_margin_pct": 14.5556234503, "fcf_positive_years": 5, "fcf_to_profit_pct": 98.4, "category": "化妆品", "is_finance": false, "hard_ok": true, "val_ok": true, "hard_reasons": [], "val_reasons": []}}], "dividends": {"000001": [{"year": 2025, "dps": 0.596, "eps": 1.18}, {"year": 2024, "dps": 0.608, "eps": 1.23}, {"year": 2023, "dps": 0.719, "eps": 2.25}, {"year": 2022, "dps": 0.285, "eps": 2.2}, {"year": 2021, "dps": 0.228, "eps": 1.73}, {"year": 2020, "dps": 0.18, "eps": 1.4}, {"year": 2019, "dps": 0.218, "eps": 1.54}, {"year": 2018, "dps": 0.145, "eps": 1.39}, {"year": 2017, "dps": 0.136, "eps": 1.3}, {"year": 2016, "dps": 0.158, "eps": 1.32}, {"year": 2015, "dps": 0.153, "eps": 1.56}, {"year": 2014, "dps": 0.174, "eps": 1.73}, {"year": 2013, "dps": 0.16, "eps": 1.86}, {"year": 2012, "dps": 0.27, "eps": 1.32}, {"year": 2008, "dps": 0.0335, "eps": 0.93}, {"year": 2002, "dps": 0.15, "eps": 0.22}, {"year": 2001, "dps": 0.15, "eps": 0.21}, {"year": 1999, "dps": 0.6, "eps": null}, {"year": 1996, "dps": 0.2, "eps": 0.76}, {"year": 1994, "dps": 0.3, "eps": 0.86}, {"year": 1993, "dps": 0.5, "eps": 1.06}, {"year": 1992, "dps": 0.3, "eps": null}, {"year": 1991, "dps": 0.2, "eps": null}, {"year": 1990, "dps": 0.3, "eps": null}], "600398": [{"year": 2025, "dps": 0.41, "eps": 0.45}, {"year": 2024, "dps": 0.41, "eps": 0.35}, {"year": 2023, "dps": 0.56, "eps": 0.68}, {"year": 2022, "dps": 0.43, "eps": 0.5}, {"year": 2021, "dps": 0.51, "eps": 0.58}, {"year": 2020, "dps": 0.256, "eps": 0.41}, {"year": 2019, "dps": 0.28, "eps": 0.72}, {"year": 2018, "dps": 0.38, "eps": 0.77}, {"year": 2017, "dps": 0.48, "eps": 0.74}, {"year": 2016, "dps": 0.49, "eps": 0.7}, {"year": 2015, "dps": 0.33, "eps": 0.66}, {"year": 2014, "dps": 0.38, "eps": 0.54}, {"year": 2013, "dps": 0.19, "eps": 0.22}, {"year": 2012, "dps": 0.05, "eps": 0.16}, {"year": 2011, "dps": 0.05, "eps": 0.16}, {"year": 2010, "dps": 0.1, "eps": 0.13}, {"year": 2009, "dps": 0.03, "eps": 0.12}, {"year": 2008, "dps": 0.05, "eps": 0.14}, {"year": 2005, "dps": 0.08, "eps": 0.445}, {"year": 2004, "dps": 0.1, "eps": 0.444}, {"year": 2003, "dps": 0.1, "eps": 0.41}, {"year": 2001, "dps": 0.015, "eps": 0.61}, {"year": 2000, "dps": 0.2, "eps": 0.65}], "600926": [{"year": 2025, "dps": 0.66, "eps": 1.75}, {"year": 2024, "dps": 0.65, "eps": 1.64}, {"year": 2023, "dps": 0.52, "eps": 2.31}, {"year": 2022, "dps": 0.4, "eps": 1.83}, {"year": 2021, "dps": 0.35, "eps": 1.43}, {"year": 2020, "dps": 0.35, "eps": 1.17}, {"year": 2019, "dps": 0.35, "eps": 1.19}, {"year": 2018, "dps": 0.25, "eps": 0.95}, {"year": 2017, "dps": 0.3, "eps": 1.24}, {"year": 2016, "dps": 0.3, "eps": 1.68}], "601128": [{"year": 2025, "dps": 0.27, "eps": 0.59}, {"year": 2024, "dps": 0.25, "eps": 1.26}, {"year": 2023, "dps": 0.25, "eps": 1.2}, {"year": 2022, "dps": 0.25, "eps": 1.0}, {"year": 2021, "dps": 0.2, "eps": 0.8}, {"year": 2020, "dps": 0.2, "eps": 0.66}, {"year": 2019, "dps": 0.2, "eps": 0.69}, {"year": 2018, "dps": 0.18, "eps": 0.67}, {"year": 2017, "dps": 0.18, "eps": 0.57}, {"year": 2016, "dps": 0.18, "eps": 0.51}], "601166": [{"year": 2025, "dps": 1.066, "eps": 1.91}, {"year": 2024, "dps": 1.06, "eps": 3.51}, {"year": 2023, "dps": 1.04, "eps": 3.51}, {"year": 2022, "dps": 1.188, "eps": 4.2}, {"year": 2021, "dps": 1.035, "eps": 3.77}, {"year": 2020, "dps": 0.802, "eps": 3.08}, {"year": 2019, "dps": 0.762, "eps": 3.1}, {"year": 2018, "dps": 0.69, "eps": 2.85}, {"year": 2017, "dps": 0.65, "eps": 2.74}, {"year": 2016, "dps": 0.61, "eps": 2.77}, {"year": 2015, "dps": 0.61, "eps": 2.63}, {"year": 2014, "dps": 0.57, "eps": 2.47}, {"year": 2013, "dps": 0.46, "eps": 2.16}, {"year": 2012, "dps": 0.57, "eps": 3.22}, {"year": 2011, "dps": 0.37, "eps": 2.36}, {"year": 2010, "dps": 0.46, "eps": 3.28}, {"year": 2009, "dps": 0.5, "eps": 2.66}, {"year": 2008, "dps": 0.45, "eps": 2.28}, {"year": 2007, "dps": 0.32, "eps": 1.75}, {"year": 2006, "dps": 0.26, "eps": 0.95}], "601577": [{"year": 2025, "dps": 0.43, "eps": 1.08}, {"year": 2024, "dps": 0.42, "eps": 1.87}, {"year": 2023, "dps": 0.38, "eps": 1.78}, {"year": 2022, "dps": 0.35, "eps": 1.61}, {"year": 2021, "dps": 0.35, "eps": 1.55}, {"year": 2020, "dps": 0.32, "eps": 1.47}, {"year": 2019, "dps": 0.32, "eps": 1.48}, {"year": 2018, "dps": 0.28, "eps": 1.42}], "601601": [{"year": 2025, "dps": 1.15, "eps": 5.56}, {"year": 2024, "dps": 1.08, "eps": 4.67}, {"year": 2023, "dps": 1.02, "eps": 2.83}, {"year": 2022, "dps": 1.02, "eps": 2.56}, {"year": 2021, "dps": 1.0, "eps": 2.79}, {"year": 2020, "dps": 1.2, "eps": 2.63}, {"year": 2019, "dps": 1.2, "eps": 3.06}, {"year": 2018, "dps": 1.0, "eps": 1.99}, {"year": 2017, "dps": 0.8, "eps": 1.62}, {"year": 2016, "dps": 0.7, "eps": 1.33}, {"year": 2015, "dps": 1.0, "eps": 1.96}, {"year": 2014, "dps": 0.5, "eps": 1.22}, {"year": 2013, "dps": 0.4, "eps": 1.02}, {"year": 2012, "dps": 0.35, "eps": 0.59}, {"year": 2011, "dps": 0.35, "eps": 0.97}, {"year": 2010, "dps": 0.35, "eps": 1.0}, {"year": 2009, "dps": 0.3, "eps": 0.95}, {"year": 2008, "dps": 0.3, "eps": 0.17}, {"year": 2007, "dps": 0.3, "eps": 1.12}], "601997": [{"year": 2025, "dps": 0.3, "eps": 1.37}, {"year": 2024, "dps": 0.29, "eps": 1.35}, {"year": 2023, "dps": 0.29, "eps": 1.45}, {"year": 2022, "dps": 0.3, "eps": 1.6}, {"year": 2021, "dps": 0.3, "eps": 1.65}, {"year": 2020, "dps": 0.3, "eps": 1.76}, {"year": 2019, "dps": 0.31, "eps": 1.72}, {"year": 2018, "dps": 0.4, "eps": 2.23}, {"year": 2017, "dps": 0.33, "eps": 1.97}, {"year": 2016, "dps": 0.26, "eps": 1.86}], "603605": [{"year": 2025, "dps": 2.0, "eps": 2.02}, {"year": 2024, "dps": 1.19, "eps": 3.93}, {"year": 2023, "dps": 1.29, "eps": 1.25}, {"year": 2022, "dps": 0.87, "eps": 2.9}, {"year": 2021, "dps": 0.86, "eps": 2.87}, {"year": 2020, "dps": 0.72, "eps": 2.37}, {"year": 2019, "dps": 0.59, "eps": 1.96}, {"year": 2018, "dps": 0.43, "eps": 1.44}, {"year": 2017, "dps": 0.31, "eps": 1.3}]}, "upcoming": [{"code": "601577", "name": "长沙银行", "ex_date": "2026-07-20", "per_share": 0.23, "yield_pct": 2.46, "progress": "实施分配", "plan": "10派2.30元(含税,扣税后2.07元)"}, {"code": "603605", "name": "珀莱雅", "ex_date": "2026-07-22", "per_share": 1.2, "yield_pct": 2.12, "progress": "实施分配", "plan": "10派12.00元(含税,扣税后10.80元)"}], "industries": ["保险Ⅱ", "化妆品", "服装家纺", "银行Ⅱ"], "disclaimer": "免责声明：本工具数据来自东方财富等公开渠道，仅供个人投资研究与自用参考，不构成任何投资建议。据此操作风险自负，禁止商用、对外分发或提供选股服务。", "generated_at": "2026-07-18 15:15"};
+  const DATA = {"trade_date": "20260718", "rows": [{"code": "600398", "name": "海澜之家", "industry": "服装家纺", "price": 5.89, "market_cap_yi": 282.88, "yield_new_pct": 6.96, "yield_avg_pct": 7.81, "yield_low_pct": 6.96, "payout_pct": 91.11, "continuous_years": 18, "last_year_dps": 0.41, "price_first": 8.2, "price_add": 6.83, "price_heavy": 5.86, "is_core": false, "score": 8.0, "score_label": "重仓候选", "metrics": {"pe_ttm": 7.45, "pe_industry_pct": 0.0, "pe_zone": "偏低区域", "peg": 21.77, "peg_level": "偏贵", "pb": 1.64, "pb_hist_pct": 25.08, "payout_pct": 91.11, "last_year_dps": 0.41, "continuous_years": 18, "turnover_pct": 0.8, "market_cap_yi": 282.88317043, "volume_hand": 38.5674, "avg_price": 5.94, "chg_30d_pct": 2.61, "chg_30d_pctile": 88.8, "total_shares_yi": 48.03, "profit_yoy_pct": 0.34, "report_date": "2025-12-31", "debt_ratio_pct": 45.4858792458, "interest_debt_ratio_pct": null, "roe_weighted_pct": 12.31, "fcf": 4549323426.48047, "fcf_ev": 0.1608, "roe_5y_avg_ge_12": true, "roe_5y_min_ge_8": true, "roe_5y_avg": 15.13, "roe_5y_min": 12.31, "roe_5y_std": 2.86, "gross_margin_pct": 44.8744412911, "net_margin_pct": 9.8586506027, "fcf_positive_years": 5, "fcf_to_profit_pct": 130.43, "ocf_to_revenue_pct": 20.73, "category": "服装家纺", "is_finance": false, "hard_ok": true, "val_ok": true, "hard_reasons": [], "val_reasons": [], "score": 8.0, "score_label": "重仓候选", "score_breakdown": ["通过硬质量+6", "现金流/营收≥10%+1", "分红率≥30%+1"]}}, {"code": "601166", "name": "兴业银行", "industry": "银行Ⅱ", "price": 17.75, "market_cap_yi": 3756.41, "yield_new_pct": 6.01, "yield_avg_pct": 5.95, "yield_low_pct": 5.86, "payout_pct": 55.81, "continuous_years": 20, "last_year_dps": 1.07, "price_first": 20.8, "price_add": 17.33, "price_heavy": 14.86, "is_core": true, "score": 9.0, "score_label": "重仓候选", "metrics": {"pe_ttm": 3.94, "pe_industry_pct": 18.18, "pe_zone": "偏低区域", "peg": 11.52, "peg_level": "偏贵", "pb": 0.46, "pb_hist_pct": 8.54, "payout_pct": 55.81, "last_year_dps": 1.07, "continuous_years": 20, "turnover_pct": 0.56, "market_cap_yi": 3756.40756356, "volume_hand": 118.618, "avg_price": 17.73, "chg_30d_pct": -2.95, "chg_30d_pctile": 53.2, "total_shares_yi": 211.63, "profit_yoy_pct": 0.34, "report_date": "2025-12-31", "debt_ratio_pct": 91.7646933693, "interest_debt_ratio_pct": null, "roe_weighted_pct": 9.15, "fcf": null, "fcf_ev": null, "roe_5y_avg_ge_12": false, "roe_5y_min_ge_8": true, "roe_5y_avg": 11.49, "roe_5y_min": 9.15, "roe_5y_std": 2.02, "gross_margin_pct": null, "net_margin_pct": 36.5956726724, "fcf_positive_years": 0, "fcf_to_profit_pct": null, "ocf_to_revenue_pct": 3.07, "category": "银行Ⅱ", "is_finance": true, "hard_ok": true, "val_ok": true, "hard_reasons": [], "val_reasons": [], "score": 9.0, "score_label": "重仓候选", "score_breakdown": ["通过硬质量+6", "净利率≥20%+1", "分红率≥30%+1", "行业龙头(核心)+1"]}}, {"code": "601997", "name": "贵阳银行", "industry": "银行Ⅱ", "price": 5.42, "market_cap_yi": 198.17, "yield_new_pct": 5.54, "yield_avg_pct": 5.41, "yield_low_pct": 5.35, "payout_pct": 21.9, "continuous_years": 10, "last_year_dps": 0.3, "price_first": 5.8, "price_add": 4.83, "price_heavy": 4.14, "is_core": true, "score": 9.0, "score_label": "重仓候选", "metrics": {"pe_ttm": 3.35, "pe_industry_pct": 12.12, "pe_zone": "偏低区域", "peg": 2.02, "peg_level": "偏贵", "pb": 0.31, "pb_hist_pct": 2.63, "payout_pct": 21.9, "last_year_dps": 0.3, "continuous_years": 10, "turnover_pct": 1.77, "market_cap_yi": 198.16593572, "volume_hand": 64.7578, "avg_price": 5.47, "chg_30d_pct": -7.67, "chg_30d_pctile": 17.2, "total_shares_yi": 36.56, "profit_yoy_pct": 1.66, "report_date": "2025-12-31", "debt_ratio_pct": 90.3736300466, "interest_debt_ratio_pct": null, "roe_weighted_pct": 7.97, "fcf": null, "fcf_ev": null, "roe_5y_avg_ge_12": false, "roe_5y_min_ge_8": false, "roe_5y_avg": 10.26, "roe_5y_min": 7.97, "roe_5y_std": 2.05, "gross_margin_pct": null, "net_margin_pct": 41.075498696, "fcf_positive_years": 0, "fcf_to_profit_pct": null, "ocf_to_revenue_pct": 72.86, "category": "银行Ⅱ", "is_finance": true, "hard_ok": true, "val_ok": true, "hard_reasons": [], "val_reasons": [], "score": 9.0, "score_label": "重仓候选", "score_breakdown": ["通过硬质量+6", "净利率≥20%+1", "现金流/营收≥10%+1", "行业龙头(核心)+1"]}}, {"code": "000001", "name": "平安银行", "industry": "银行Ⅱ", "price": 10.78, "market_cap_yi": 2091.96, "yield_new_pct": 5.53, "yield_avg_pct": 5.95, "yield_low_pct": 5.53, "payout_pct": 50.51, "continuous_years": 14, "last_year_dps": 0.6, "price_first": 11.92, "price_add": 9.93, "price_heavy": 8.51, "is_core": true, "score": 9.0, "score_label": "重仓候选", "metrics": {"pe_ttm": 3.6, "pe_industry_pct": 15.15, "pe_zone": "偏低区域", "peg": null, "peg_level": "负增长", "pb": 0.46, "pb_hist_pct": 4.82, "payout_pct": 50.51, "last_year_dps": 0.6, "continuous_years": 14, "turnover_pct": 0.55, "market_cap_yi": 2091.95798174, "volume_hand": 107.5499, "avg_price": 10.82, "chg_30d_pct": -0.37, "chg_30d_pctile": 60.8, "total_shares_yi": 194.06, "profit_yoy_pct": -4.21, "report_date": "2025-12-31", "debt_ratio_pct": 90.6985362426, "interest_debt_ratio_pct": null, "roe_weighted_pct": 9.15, "fcf": null, "fcf_ev": null, "roe_5y_avg_ge_12": false, "roe_5y_min_ge_8": true, "roe_5y_avg": 10.76, "roe_5y_min": 9.15, "roe_5y_std": 1.1, "gross_margin_pct": null, "net_margin_pct": 32.4348381796, "fcf_positive_years": 0, "fcf_to_profit_pct": null, "ocf_to_revenue_pct": 2.4, "category": "银行Ⅱ", "is_finance": true, "hard_ok": true, "val_ok": true, "hard_reasons": [], "val_reasons": [], "score": 9.0, "score_label": "重仓候选", "score_breakdown": ["通过硬质量+6", "净利率≥20%+1", "分红率≥30%+1", "行业龙头(核心)+1"]}}, {"code": "601577", "name": "长沙银行", "industry": "银行Ⅱ", "price": 9.36, "market_cap_yi": 376.42, "yield_new_pct": 4.59, "yield_avg_pct": 4.38, "yield_low_pct": 4.06, "payout_pct": 39.81, "continuous_years": 8, "last_year_dps": 0.43, "price_first": 7.6, "price_add": 6.33, "price_heavy": 5.43, "is_core": true, "score": 10.0, "score_label": "重仓候选", "metrics": {"pe_ttm": 4.09, "pe_industry_pct": 24.24, "pe_zone": "偏低区域", "peg": 1.14, "peg_level": "合理", "pb": 0.52, "pb_hist_pct": 16.54, "payout_pct": 39.81, "last_year_dps": 0.43, "continuous_years": 8, "turnover_pct": 0.65, "market_cap_yi": 376.41743137, "volume_hand": 26.0709, "avg_price": 9.4, "chg_30d_pct": -0.74, "chg_30d_pctile": 54.8, "total_shares_yi": 40.22, "profit_yoy_pct": 3.59, "report_date": "2025-12-31", "debt_ratio_pct": 93.5071968887, "interest_debt_ratio_pct": null, "roe_weighted_pct": 11.24, "fcf": null, "fcf_ev": null, "roe_5y_avg_ge_12": true, "roe_5y_min_ge_8": true, "roe_5y_avg": 12.28, "roe_5y_min": 11.24, "roe_5y_std": 0.69, "gross_margin_pct": null, "net_margin_pct": 32.1438072488, "fcf_positive_years": 0, "fcf_to_profit_pct": null, "ocf_to_revenue_pct": 146.07, "category": "银行Ⅱ", "is_finance": true, "hard_ok": true, "val_ok": true, "hard_reasons": [], "val_reasons": [], "score": 10.0, "score_label": "重仓候选", "score_breakdown": ["通过硬质量+6", "净利率≥20%+1", "现金流/营收≥10%+1", "分红率≥30%+1", "行业龙头(核心)+1"]}}, {"code": "601128", "name": "常熟银行", "industry": "银行Ⅱ", "price": 6.23, "market_cap_yi": 227.28, "yield_new_pct": 4.33, "yield_avg_pct": 4.12, "yield_low_pct": 4.01, "payout_pct": 45.76, "continuous_years": 10, "last_year_dps": 0.27, "price_first": 5.0, "price_add": 4.17, "price_heavy": 3.57, "is_core": true, "score": 10.0, "score_label": "重仓候选", "metrics": {"pe_ttm": 4.72, "pe_industry_pct": 33.33, "pe_zone": "合理区域", "peg": 0.44, "peg_level": "极低估成长", "pb": 0.72, "pb_hist_pct": 1.64, "payout_pct": 45.76, "last_year_dps": 0.27, "continuous_years": 10, "turnover_pct": 1.61, "market_cap_yi": 227.2815669, "volume_hand": 58.7124, "avg_price": 6.28, "chg_30d_pct": -10.74, "chg_30d_pctile": 12.8, "total_shares_yi": 36.48, "profit_yoy_pct": 10.65, "report_date": "2025-12-31", "debt_ratio_pct": 91.6985387189, "interest_debt_ratio_pct": null, "roe_weighted_pct": 14.05, "fcf": null, "fcf_ev": null, "roe_5y_avg_ge_12": true, "roe_5y_min_ge_8": true, "roe_5y_avg": 13.31, "roe_5y_min": 11.62, "roe_5y_std": 0.93, "gross_margin_pct": null, "net_margin_pct": 38.4196673759, "fcf_positive_years": 0, "fcf_to_profit_pct": null, "ocf_to_revenue_pct": 158.04, "category": "银行Ⅱ", "is_finance": true, "hard_ok": true, "val_ok": true, "hard_reasons": [], "val_reasons": [], "score": 10.0, "score_label": "重仓候选", "score_breakdown": ["通过硬质量+6", "净利率≥20%+1", "现金流/营收≥10%+1", "分红率≥30%+1", "行业龙头(核心)+1"]}}, {"code": "600926", "name": "杭州银行", "industry": "银行Ⅱ", "price": 15.56, "market_cap_yi": 1127.94, "yield_new_pct": 4.24, "yield_avg_pct": 3.92, "yield_low_pct": 3.34, "payout_pct": 37.71, "continuous_years": 10, "last_year_dps": 0.66, "price_first": 10.4, "price_add": 8.67, "price_heavy": 7.43, "is_core": true, "score": 9.0, "score_label": "重仓候选", "metrics": {"pe_ttm": 4.25, "pe_industry_pct": 30.3, "pe_zone": "合理区域", "peg": 0.35, "peg_level": "极低估成长", "pb": 0.82, "pb_hist_pct": 29.9, "payout_pct": 37.71, "last_year_dps": 0.66, "continuous_years": 10, "turnover_pct": 0.58, "market_cap_yi": 1127.94479647, "volume_hand": 42.0444, "avg_price": 15.63, "chg_30d_pct": -0.77, "chg_30d_pctile": 52.4, "total_shares_yi": 72.49, "profit_yoy_pct": 12.05, "report_date": "2025-12-31", "debt_ratio_pct": 93.0934324652, "interest_debt_ratio_pct": null, "roe_weighted_pct": 14.65, "fcf": null, "fcf_ev": null, "roe_5y_avg_ge_12": true, "roe_5y_min_ge_8": true, "roe_5y_avg": 14.53, "roe_5y_min": 12.33, "roe_5y_std": 1.29, "gross_margin_pct": null, "net_margin_pct": 49.0462145668, "fcf_positive_years": 0, "fcf_to_profit_pct": null, "ocf_to_revenue_pct": 4.11, "category": "银行Ⅱ", "is_finance": true, "hard_ok": true, "val_ok": true, "hard_reasons": [], "val_reasons": [], "score": 9.0, "score_label": "重仓候选", "score_breakdown": ["通过硬质量+6", "净利率≥20%+1", "分红率≥30%+1", "行业龙头(核心)+1"]}}, {"code": "601601", "name": "XD中国太", "industry": "保险Ⅱ", "price": 29.75, "market_cap_yi": 2862.05, "yield_new_pct": 3.87, "yield_avg_pct": 3.64, "yield_low_pct": 3.43, "payout_pct": 20.68, "continuous_years": 19, "last_year_dps": 1.15, "price_first": 20.4, "price_add": 17.0, "price_heavy": 14.57, "is_core": false, "score": 7.0, "score_label": "观察/轻仓", "metrics": {"pe_ttm": 7.13, "pe_industry_pct": 0.0, "pe_zone": "偏低区域", "peg": 0.38, "peg_level": "极低估成长", "pb": 0.93, "pb_hist_pct": 12.49, "payout_pct": 20.68, "last_year_dps": 1.15, "continuous_years": 19, "turnover_pct": 0.98, "market_cap_yi": 2862.05158286, "volume_hand": 67.0862, "avg_price": 29.88, "chg_30d_pct": -4.09, "chg_30d_pctile": 47.2, "total_shares_yi": 96.2, "profit_yoy_pct": 19.01, "report_date": "2025-12-31", "debt_ratio_pct": 89.3720584069, "interest_debt_ratio_pct": null, "roe_weighted_pct": 18.0, "fcf": null, "fcf_ev": null, "roe_5y_avg_ge_12": true, "roe_5y_min_ge_8": true, "roe_5y_avg": 15.48, "roe_5y_min": 11.4, "roe_5y_std": 3.13, "gross_margin_pct": null, "net_margin_pct": 12.7308367574, "fcf_positive_years": 0, "fcf_to_profit_pct": null, "ocf_to_revenue_pct": 44.93, "category": "保险Ⅱ", "is_finance": true, "hard_ok": true, "val_ok": true, "hard_reasons": [], "val_reasons": [], "score": 7.0, "score_label": "观察/轻仓", "score_breakdown": ["通过硬质量+6", "现金流/营收≥10%+1"]}}, {"code": "603605", "name": "珀莱雅", "industry": "化妆品", "price": 56.73, "market_cap_yi": 224.64, "yield_new_pct": 3.53, "yield_avg_pct": 2.63, "yield_low_pct": 2.1, "payout_pct": 99.01, "continuous_years": 9, "last_year_dps": 2.0, "price_first": 23.8, "price_add": 19.83, "price_heavy": 17.0, "is_core": false, "score": 10.0, "score_label": "重仓候选", "metrics": {"pe_ttm": 15.32, "pe_industry_pct": 0.0, "pe_zone": "偏低区域", "peg": null, "peg_level": "负增长", "pb": 3.82, "pb_hist_pct": 2.74, "payout_pct": 99.01, "last_year_dps": 2.0, "continuous_years": 9, "turnover_pct": 2.1, "market_cap_yi": 224.6372126, "volume_hand": 8.2987, "avg_price": 57.61, "chg_30d_pct": -14.67, "chg_30d_pctile": 4.4, "total_shares_yi": 3.96, "profit_yoy_pct": -3.5, "report_date": "2025-12-31", "debt_ratio_pct": 26.1669046033, "interest_debt_ratio_pct": null, "roe_weighted_pct": 25.8, "fcf": 2020514359.17447, "fcf_ev": 0.0899, "roe_5y_avg_ge_12": true, "roe_5y_min_ge_8": true, "roe_5y_avg": 27.29, "roe_5y_min": 22.25, "roe_5y_std": 3.57, "gross_margin_pct": 73.2648096979, "net_margin_pct": 14.5556234503, "fcf_positive_years": 5, "fcf_to_profit_pct": 98.4, "ocf_to_revenue_pct": 20.7, "category": "化妆品", "is_finance": false, "hard_ok": true, "val_ok": true, "hard_reasons": [], "val_reasons": [], "score": 10.0, "score_label": "重仓候选", "score_breakdown": ["通过硬质量+6", "ROE≥20%+1", "毛利率≥50%+1", "现金流/营收≥10%+1", "分红率≥30%+1"]}}], "dividends": {"000001": [{"year": 2025, "dps": 0.596, "eps": 1.18}, {"year": 2024, "dps": 0.608, "eps": 1.23}, {"year": 2023, "dps": 0.719, "eps": 2.25}, {"year": 2022, "dps": 0.285, "eps": 2.2}, {"year": 2021, "dps": 0.228, "eps": 1.73}, {"year": 2020, "dps": 0.18, "eps": 1.4}, {"year": 2019, "dps": 0.218, "eps": 1.54}, {"year": 2018, "dps": 0.145, "eps": 1.39}, {"year": 2017, "dps": 0.136, "eps": 1.3}, {"year": 2016, "dps": 0.158, "eps": 1.32}, {"year": 2015, "dps": 0.153, "eps": 1.56}, {"year": 2014, "dps": 0.174, "eps": 1.73}, {"year": 2013, "dps": 0.16, "eps": 1.86}, {"year": 2012, "dps": 0.27, "eps": 1.32}, {"year": 2008, "dps": 0.0335, "eps": 0.93}, {"year": 2002, "dps": 0.15, "eps": 0.22}, {"year": 2001, "dps": 0.15, "eps": 0.21}, {"year": 1999, "dps": 0.6, "eps": null}, {"year": 1996, "dps": 0.2, "eps": 0.76}, {"year": 1994, "dps": 0.3, "eps": 0.86}, {"year": 1993, "dps": 0.5, "eps": 1.06}, {"year": 1992, "dps": 0.3, "eps": null}, {"year": 1991, "dps": 0.2, "eps": null}, {"year": 1990, "dps": 0.3, "eps": null}], "600398": [{"year": 2025, "dps": 0.41, "eps": 0.45}, {"year": 2024, "dps": 0.41, "eps": 0.35}, {"year": 2023, "dps": 0.56, "eps": 0.68}, {"year": 2022, "dps": 0.43, "eps": 0.5}, {"year": 2021, "dps": 0.51, "eps": 0.58}, {"year": 2020, "dps": 0.256, "eps": 0.41}, {"year": 2019, "dps": 0.28, "eps": 0.72}, {"year": 2018, "dps": 0.38, "eps": 0.77}, {"year": 2017, "dps": 0.48, "eps": 0.74}, {"year": 2016, "dps": 0.49, "eps": 0.7}, {"year": 2015, "dps": 0.33, "eps": 0.66}, {"year": 2014, "dps": 0.38, "eps": 0.54}, {"year": 2013, "dps": 0.19, "eps": 0.22}, {"year": 2012, "dps": 0.05, "eps": 0.16}, {"year": 2011, "dps": 0.05, "eps": 0.16}, {"year": 2010, "dps": 0.1, "eps": 0.13}, {"year": 2009, "dps": 0.03, "eps": 0.12}, {"year": 2008, "dps": 0.05, "eps": 0.14}, {"year": 2005, "dps": 0.08, "eps": 0.445}, {"year": 2004, "dps": 0.1, "eps": 0.444}, {"year": 2003, "dps": 0.1, "eps": 0.41}, {"year": 2001, "dps": 0.015, "eps": 0.61}, {"year": 2000, "dps": 0.2, "eps": 0.65}], "600926": [{"year": 2025, "dps": 0.66, "eps": 1.75}, {"year": 2024, "dps": 0.65, "eps": 1.64}, {"year": 2023, "dps": 0.52, "eps": 2.31}, {"year": 2022, "dps": 0.4, "eps": 1.83}, {"year": 2021, "dps": 0.35, "eps": 1.43}, {"year": 2020, "dps": 0.35, "eps": 1.17}, {"year": 2019, "dps": 0.35, "eps": 1.19}, {"year": 2018, "dps": 0.25, "eps": 0.95}, {"year": 2017, "dps": 0.3, "eps": 1.24}, {"year": 2016, "dps": 0.3, "eps": 1.68}], "601128": [{"year": 2025, "dps": 0.27, "eps": 0.59}, {"year": 2024, "dps": 0.25, "eps": 1.26}, {"year": 2023, "dps": 0.25, "eps": 1.2}, {"year": 2022, "dps": 0.25, "eps": 1.0}, {"year": 2021, "dps": 0.2, "eps": 0.8}, {"year": 2020, "dps": 0.2, "eps": 0.66}, {"year": 2019, "dps": 0.2, "eps": 0.69}, {"year": 2018, "dps": 0.18, "eps": 0.67}, {"year": 2017, "dps": 0.18, "eps": 0.57}, {"year": 2016, "dps": 0.18, "eps": 0.51}], "601166": [{"year": 2025, "dps": 1.066, "eps": 1.91}, {"year": 2024, "dps": 1.06, "eps": 3.51}, {"year": 2023, "dps": 1.04, "eps": 3.51}, {"year": 2022, "dps": 1.188, "eps": 4.2}, {"year": 2021, "dps": 1.035, "eps": 3.77}, {"year": 2020, "dps": 0.802, "eps": 3.08}, {"year": 2019, "dps": 0.762, "eps": 3.1}, {"year": 2018, "dps": 0.69, "eps": 2.85}, {"year": 2017, "dps": 0.65, "eps": 2.74}, {"year": 2016, "dps": 0.61, "eps": 2.77}, {"year": 2015, "dps": 0.61, "eps": 2.63}, {"year": 2014, "dps": 0.57, "eps": 2.47}, {"year": 2013, "dps": 0.46, "eps": 2.16}, {"year": 2012, "dps": 0.57, "eps": 3.22}, {"year": 2011, "dps": 0.37, "eps": 2.36}, {"year": 2010, "dps": 0.46, "eps": 3.28}, {"year": 2009, "dps": 0.5, "eps": 2.66}, {"year": 2008, "dps": 0.45, "eps": 2.28}, {"year": 2007, "dps": 0.32, "eps": 1.75}, {"year": 2006, "dps": 0.26, "eps": 0.95}], "601577": [{"year": 2025, "dps": 0.43, "eps": 1.08}, {"year": 2024, "dps": 0.42, "eps": 1.87}, {"year": 2023, "dps": 0.38, "eps": 1.78}, {"year": 2022, "dps": 0.35, "eps": 1.61}, {"year": 2021, "dps": 0.35, "eps": 1.55}, {"year": 2020, "dps": 0.32, "eps": 1.47}, {"year": 2019, "dps": 0.32, "eps": 1.48}, {"year": 2018, "dps": 0.28, "eps": 1.42}], "601601": [{"year": 2025, "dps": 1.15, "eps": 5.56}, {"year": 2024, "dps": 1.08, "eps": 4.67}, {"year": 2023, "dps": 1.02, "eps": 2.83}, {"year": 2022, "dps": 1.02, "eps": 2.56}, {"year": 2021, "dps": 1.0, "eps": 2.79}, {"year": 2020, "dps": 1.2, "eps": 2.63}, {"year": 2019, "dps": 1.2, "eps": 3.06}, {"year": 2018, "dps": 1.0, "eps": 1.99}, {"year": 2017, "dps": 0.8, "eps": 1.62}, {"year": 2016, "dps": 0.7, "eps": 1.33}, {"year": 2015, "dps": 1.0, "eps": 1.96}, {"year": 2014, "dps": 0.5, "eps": 1.22}, {"year": 2013, "dps": 0.4, "eps": 1.02}, {"year": 2012, "dps": 0.35, "eps": 0.59}, {"year": 2011, "dps": 0.35, "eps": 0.97}, {"year": 2010, "dps": 0.35, "eps": 1.0}, {"year": 2009, "dps": 0.3, "eps": 0.95}, {"year": 2008, "dps": 0.3, "eps": 0.17}, {"year": 2007, "dps": 0.3, "eps": 1.12}], "601997": [{"year": 2025, "dps": 0.3, "eps": 1.37}, {"year": 2024, "dps": 0.29, "eps": 1.35}, {"year": 2023, "dps": 0.29, "eps": 1.45}, {"year": 2022, "dps": 0.3, "eps": 1.6}, {"year": 2021, "dps": 0.3, "eps": 1.65}, {"year": 2020, "dps": 0.3, "eps": 1.76}, {"year": 2019, "dps": 0.31, "eps": 1.72}, {"year": 2018, "dps": 0.4, "eps": 2.23}, {"year": 2017, "dps": 0.33, "eps": 1.97}, {"year": 2016, "dps": 0.26, "eps": 1.86}], "603605": [{"year": 2025, "dps": 2.0, "eps": 2.02}, {"year": 2024, "dps": 1.19, "eps": 3.93}, {"year": 2023, "dps": 1.29, "eps": 1.25}, {"year": 2022, "dps": 0.87, "eps": 2.9}, {"year": 2021, "dps": 0.86, "eps": 2.87}, {"year": 2020, "dps": 0.72, "eps": 2.37}, {"year": 2019, "dps": 0.59, "eps": 1.96}, {"year": 2018, "dps": 0.43, "eps": 1.44}, {"year": 2017, "dps": 0.31, "eps": 1.3}]}, "upcoming": [], "industries": ["保险Ⅱ", "化妆品", "服装家纺", "银行Ⅱ"], "disclaimer": "免责声明：本工具数据来自东方财富等公开渠道，仅供个人投资研究与自用参考，不构成任何投资建议。据此操作风险自负，禁止商用、对外分发或提供选股服务。", "generated_at": "2026-07-18 22:47"};
   const PASS_HASH = "a320480f534776bddb5cdb54b1e93d210a3c7d199e80a23c1b2178497b184c76";
   const GATE_KEY = "stock_pick_gate_ok";
   const state = { filter: "全部", q: "" };
@@ -380,16 +452,22 @@ html, body {
   function hitFirst(r){
     return r.price!=null && r.price_first!=null && r.price<=r.price_first;
   }
+  function rowScore(r){ const s=r.score??(r.metrics&&r.metrics.score); return s==null?0:Number(s); }
+  function scoreCell(r){
+    const s=rowScore(r);
+    const label=r.score_label||(r.metrics&&r.metrics.score_label)||"";
+    const cls=s>=8?"score-hi":s>=6?"score-mid":"score-lo";
+    return `<span class="cell-score ${cls}">${s.toFixed(1)}<span class="score-label">${label||""}</span></span>`;
+  }
 
   function currentRows(){
     let rows = DATA.rows || [];
     if(state.filter==="核心") rows = rows.filter(r=>r.is_core && !isConsumerInd(r.industry));
     else if(state.filter!=="全部") rows = rows.filter(r=>(r.industry||"").includes(state.filter));
     rows = rows.filter(matchSearch);
-    // 已达首仓价置顶，其余按新股息率降序
     return rows.slice().sort((a,b)=>{
-      const ha=hitFirst(a)?0:1, hb=hitFirst(b)?0:1;
-      if(ha!==hb) return ha-hb;
+      const ds=rowScore(b)-rowScore(a);
+      if(ds) return ds;
       return (b.yield_new_pct??-1)-(a.yield_new_pct??-1);
     });
   }
@@ -409,42 +487,49 @@ html, body {
   }
   function metricsPanel(r){
     const m=r.metrics||{};
-    const pill=(k,v)=>`<span class="metric-pill"><b>${k}</b> ${v}</span>`;
+    const pill=(k,v,tone="")=>`<span class="metric-pill ${tone?`metric-${tone}`:""}"><b>${k}</b> ${v}</span>`;
+    const section=(title,content)=>`<section class="metric-section"><h4>${title}</h4><div class="metric-grid">${content}</div></section>`;
+    const scoreParts=(m.score_breakdown||[]).map(x=>pill("评分依据",x,x.includes("+0")||x.includes("未过")?"bad":"good")).join("");
+    const hardReasons=(m.hard_reasons||[]).map(x=>pill("未通过",x,"bad")).join("");
+    const valReasons=(m.val_reasons||[]).map(x=>pill("估值提醒",x,"warn")).join("");
+    const score=rowScore(r), scoreTone=score>=8?"good":score>=6?"warn":"bad";
     return `<div class="metrics-box">
-      ${pill("市盈率(TTM)",fmtPill(m.pe_ttm))}
-      ${pill("估值区域",m.pe_zone||"-")}
-      ${pill("PE分位",fmtPill(m.pe_industry_pct,0,"%"))}
-      ${pill("PEG",fmtPill(m.peg))}
-      ${pill("PEG等级",m.peg_level||"-")}
-      ${pill("市净率",fmtPill(m.pb))}
-      ${pill("PB分位",fmtPill(m.pb_hist_pct,0,"%"))}
-      ${pill("分红率",pct(r.payout_pct))}
-      ${pill("最新年度DPS",fmtPill(r.last_year_dps,4))}
-      ${pill("连续分红",(r.continuous_years??0)+"年")}
-      ${pill("换手率",fmtPill(m.turnover_pct,2,"%"))}
-      ${pill("总市值",fmtPill(m.market_cap_yi??r.market_cap_yi,1,"亿"))}
-      ${pill("成交量",fmtPill(m.volume_hand,2,"万手"))}
-      ${pill("均价",m.avg_price!=null?("¥"+fmtPill(m.avg_price)):"-")}
-      ${pill("30日涨跌幅",fmtPill(m.chg_30d_pct,2,"%"))}
-      ${pill("30d分位",fmtPill(m.chg_30d_pctile,0,"%"))}
-      ${pill("总股本",fmtPill(m.total_shares_yi,2,"亿股"))}
-      ${pill("净利同比",fmtPill(m.profit_yoy_pct,2,"%"))}
-      ${pill("财报期",m.report_date||"-")}
-      ${pill("资产负债率",fmtPill(m.debt_ratio_pct,2,"%"))}
-      ${pill("有息负债率",fmtPill(m.interest_debt_ratio_pct,2,"%"))}
-      ${pill("ROE(加权)",fmtPill(m.roe_weighted_pct,2,"%"))}
-      ${pill("自由现金流",m.fcf!=null?(fmtPill(m.fcf/1e8,2,"亿")):"-")}
-      ${pill("FCF/EV",fmtPill(m.fcf_ev,4))}
-      ${pill("近5年均值≥12%",fmtPill(m.roe_5y_avg_ge_12))}
-      ${pill("近5年最低≥8%",fmtPill(m.roe_5y_min_ge_8))}
-      ${pill("近5年均值",fmtPill(m.roe_5y_avg,2,"%"))}
-      ${pill("近5年最低",fmtPill(m.roe_5y_min,2,"%"))}
-      ${pill("近5年标准差",fmtPill(m.roe_5y_std,2,"%"))}
-      ${pill("毛利率",fmtPill(m.gross_margin_pct,2,"%"))}
-      ${pill("净利率",fmtPill(m.net_margin_pct,2,"%"))}
-      ${pill("FCF为正年数",m.fcf_positive_years??"-")}
-      ${pill("FCF/净利润",fmtPill(m.fcf_to_profit_pct,2,"%"))}
-      ${pill("分类",m.category||r.industry||"-")}
+      <div class="metric-summary">
+        <div><strong>${r.name||""}</strong><small>${r.code} · ${m.category||r.industry||"未分类"}</small></div>
+        <div class="metric-score metric-${scoreTone}"><strong>${score.toFixed(1)}</strong><small>综合评分 / 10</small></div>
+        <div><strong>${r.score_label||m.score_label||"-"}</strong><small>仅代表研究优先级</small></div>
+        <div><strong>${m.report_date||"-"}</strong><small>财务报告期</small></div>
+      </div>
+      ${section("评分依据（用于核对分数）",
+        pill("硬质量",m.hard_ok?"通过":"未通过",m.hard_ok?"good":"bad")+
+        pill("估值过滤",m.val_ok?"通过":"未通过",m.val_ok?"good":"bad")+
+        (scoreParts||pill("评分明细","暂无"))+hardReasons+valReasons)}
+      ${section("分红与买入参考",
+        pill("新股息率",pct(r.yield_new_pct))+pill("平均股息率",pct(r.yield_avg_pct))+
+        pill("最低股息率",pct(r.yield_low_pct))+pill("分红率",pct(r.payout_pct))+
+        pill("最新年度DPS",fmtPill(r.last_year_dps,4))+pill("连续分红",(r.continuous_years??0)+"年")+
+        pill("首仓参考价",r.price_first!=null?"¥"+fmtPill(r.price_first):"-")+
+        pill("加仓参考价",r.price_add!=null?"¥"+fmtPill(r.price_add):"-")+
+        pill("重仓参考价",r.price_heavy!=null?"¥"+fmtPill(r.price_heavy):"-"))}
+      ${section("估值与当日行情",
+        pill("最新价",r.price!=null?"¥"+fmtPill(r.price):"-")+pill("市盈率(TTM)",fmtPill(m.pe_ttm))+
+        pill("估值区域",m.pe_zone||"-")+pill("PE行业分位",fmtPill(m.pe_industry_pct,0,"%"))+
+        pill("市净率",fmtPill(m.pb))+pill("PB历史分位",fmtPill(m.pb_hist_pct,0,"%"))+
+        pill("PEG",fmtPill(m.peg))+pill("PEG等级",m.peg_level||"-")+
+        pill("换手率",fmtPill(m.turnover_pct,2,"%"))+pill("总市值",fmtPill(m.market_cap_yi??r.market_cap_yi,1,"亿"))+
+        pill("成交量",fmtPill(m.volume_hand,2,"万手"))+pill("当日均价",m.avg_price!=null?"¥"+fmtPill(m.avg_price):"-")+
+        pill("30日涨跌幅",fmtPill(m.chg_30d_pct,2,"%"))+pill("30日分位",fmtPill(m.chg_30d_pctile,0,"%")))}
+      ${section("财务质量",
+        pill("ROE(加权)",fmtPill(m.roe_weighted_pct,2,"%"))+pill("近5年ROE均值",fmtPill(m.roe_5y_avg,2,"%"))+
+        pill("近5年ROE最低",fmtPill(m.roe_5y_min,2,"%"))+pill("ROE标准差",fmtPill(m.roe_5y_std,2,"%"))+
+        pill("毛利率",fmtPill(m.gross_margin_pct,2,"%"))+pill("净利率",fmtPill(m.net_margin_pct,2,"%"))+
+        pill("净利润同比",fmtPill(m.profit_yoy_pct,2,"%"))+pill("资产负债率",fmtPill(m.debt_ratio_pct,2,"%"))+
+        pill("有息负债率",fmtPill(m.interest_debt_ratio_pct,2,"%"))+
+        pill("自由现金流",m.fcf!=null?fmtPill(m.fcf/1e8,2,"亿"):"-")+
+        pill("FCF/EV",m.fcf_ev!=null?fmtPill(m.fcf_ev*100,2,"%"):"-")+
+        pill("FCF为正年数",m.fcf_positive_years??"-")+pill("FCF/净利润",fmtPill(m.fcf_to_profit_pct,2,"%"))+
+        pill("现金流/营收",fmtPill(m.ocf_to_revenue_pct,2,"%"))+pill("总股本",fmtPill(m.total_shares_yi,2,"亿股")))}
+      <div class="metric-foot"><span>“-”表示数据源暂未提供；评分只是筛选辅助，请结合财报原文判断。</span></div>
     </div>`;
   }
   function renderTable(){
@@ -456,12 +541,14 @@ html, body {
       return;
     }
     empty.style.display="none";
-    for(const r of rows){
+    rows.forEach((r,index)=>{
       const tr=document.createElement("tr");
+      if(index<10) tr.classList.add("row-priority");
       if(hitFirst(r)) tr.classList.add("row-hit");
       tr.classList.add("row-main");
       tr.innerHTML=`
-        <td class="cell-name"><span class="stock-name">${r.name||""}</span><span class="stock-code">${r.code} · 点击展开</span></td>
+        <td class="cell-name"><span class="stock-name">${r.name||""}${index<10?'<span class="priority-badge">优先看</span>':""}</span><span class="stock-code">${r.code} · 点击展开</span></td>
+        <td>${scoreCell(r)}</td>
         <td class="cell-price">${num(r.price)}</td>
         <td>${yieldCell(r.yield_new_pct,r.yield_avg_pct,r.yield_low_pct)}</td>
         <td>${pct(r.payout_pct)}</td>
@@ -472,14 +559,14 @@ html, body {
         <td class="cell-tier">${tierPriceCell(r.price,r.price_heavy)}</td>`;
       const trExp=document.createElement("tr");
       trExp.className="row-expand"; trExp.style.display="none";
-      trExp.innerHTML=`<td colspan="9">${metricsPanel(r)}</td>`;
+      trExp.innerHTML=`<td colspan="10">${metricsPanel(r)}</td>`;
       tr.addEventListener("click",()=>{
         const open=trExp.style.display!=="none";
         trExp.style.display=open?"none":"table-row";
         tr.classList.toggle("expanded",!open);
       });
       body.appendChild(tr); body.appendChild(trExp);
-    }
+    });
   }
 
   function renderFilters(){
